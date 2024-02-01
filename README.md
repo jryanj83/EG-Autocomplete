@@ -1,6 +1,24 @@
-# Getting Started with Create React App
+# Experiant Group - Code Assessment
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This application demonstrates an auto-complete address look-up component (`AddressLookup`). 
+
+It makes an asynchronous call to the JSON Placeholder API’s [Users endpoint](https://jsonplaceholder.typicode.com/users) to retrieve a set of mock user data.
+
+Then it uses that data to populate a MaterialUI [Autocomplete Component](https://mui.com/material-ui/react-autocomplete/) so individual users can be selected.
+
+Users dispayed in the selection box will be alphabetically sorted and be displayed in the following format:
+`{Last Name} {Suffix}, {First Name} (Title).`
+
+Upon selecting a user from the list that user's name and address will be displayed below the selection box.
+
+
+## To start the project locally:
+### `nvm use` 
+To use the same Node.js version as it was created with
+
+### `npm i` 
+To install dependencies.
+
 
 ## Available Scripts
 
