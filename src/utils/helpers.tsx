@@ -1,3 +1,5 @@
+import { User } from "../common/types";
+
 export const formatName = (inputName: string): string => {
 	// Regular expression to match name components
 	const nameRegex = /^(Mr\.|Mrs\.|Ms\.|Dr\.)?\s*([A-Za-z]+)\s*([A-Za-z]+)\s*(Jr\.|Sr\.|I|II|III|IV|V|VI)?$/;
@@ -24,22 +26,22 @@ export const formatName = (inputName: string): string => {
 	}
 }
 
-type Address = {
-  street: string;
-  suite: string;
-  city: string;
-  zipcode: string;
-  geo: {
-    lat: string;
-    lng: string;
-  };
-};
+// type Address = {
+//   street: string;
+//   suite: string;
+//   city: string;
+//   zipcode: string;
+//   geo: {
+//     lat: string;
+//     lng: string;
+//   };
+// };
 
-type User = {
-  id: number;
-  name: string;
-  address: Address;
-};
+// type User = {
+//   id: number;
+//   name: string;
+//   address: Address;
+// };
 
 export function alphabetizeByName(users: User[]): User[] {
   return users.slice().sort((a, b) => {

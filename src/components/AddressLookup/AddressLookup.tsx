@@ -1,27 +1,13 @@
 import React, { useEffect, useState } from "react";
+import { AppProps, User } from "../../common/types";
 import { alphabetizeByName, formatName } from "../../utils/helpers";
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
-import { Box, CircularProgress, Stack } from "@mui/material";
-
-type AppProps = {
-  message?: string;
-};
-
-type User = {
-	id: number,
-	name: string,
-	address: {
-		city: string,
-		street: string,
-		suite: string,
-		zipcode: string,
-		geo: {
-			lat: string,
-			lng: string
-		}
-	}
-}
+import {
+	Autocomplete,
+	Box,
+	CircularProgress,
+	Stack,
+	TextField
+} from "@mui/material";
 
 const AddressLookup: React.FC<AppProps> = ({ message = 'Address Lookup:' }) => {
 	const [value, setValue] = useState<User | null>(null);
@@ -58,6 +44,11 @@ const AddressLookup: React.FC<AppProps> = ({ message = 'Address Lookup:' }) => {
 		fetchUserData().catch(console.error);;
 	}, [setUserData]);
 
+	/**
+	 * @name renderAddress
+	 * @description Renders selected User's name and address in specific format.
+	 * @returns {React.Component} A React component.
+	 */
 	const renderAddress = () => (
 		<Stack className="AddressLookup__result" textAlign={'left'} spacing={1} sx={{ fontWeight: 'normal', width: 300 }}>
 			<Box component="span" fontWeight='fontWeightBold'>
@@ -71,50 +62,46 @@ const AddressLookup: React.FC<AppProps> = ({ message = 'Address Lookup:' }) => {
 	);
 	
 	return (
-				<Stack
-					className='AddressLookup'
-					// justifyContent={'left'} 
-					// alignItems={'left'} 
-					textAlign={'left'}
-					spacing={2}
-					sx={{pt: 10, width: 320, margin: '0 auto', fontWeight: 'bold' }}
-				>
-					{!userData?.length && <div><CircularProgress color="inherit" size={20} /></div>}
-					{userData?.length && (
-						<>
-							<h1>{message}</h1>
+		<Stack
+			className='AddressLookup'
+			textAlign={'left'}
+			spacing={2}
+			sx={{pt: 10, width: 320, margin: '0 auto', fontWeight: 'bold' }}
+		>
+			{!userData?.length && <div><CircularProgress color="inherit" size={20} /></div>}
+			{userData?.length && (
+				<>
+					<h1>{message}</h1>
 
-							<Autocomplete
-								value={value}
-								onChange={(event: React.SyntheticEvent, newValue: User | null) => {
-									// console.log('Changing :: ', newValue);
-									setValue(newValue);
-								}}
-								inputValue={inputValue}
-								onInputChange={(event: React.SyntheticEvent, newInputValue: string) => {
-									// console.log('Input Changing :: ', newInputValue);
-									setInputValue(newInputValue);
-								}}
-								options={userData ?? []}
-								getOptionLabel={(option: User) => option.name}
-								sx={{ pt: 2, width: 300 }}
-								renderInput={(params) => {
-									// console.log('params :: ', params);
-									return (
-										<Box sx={{pb: 2}}>
-											<TextField {...params} label="Name" />
-										</Box>
-										
-									)
-								}}
-							/>
+					<Autocomplete
+						value={value}
+						onChange={(event: React.SyntheticEvent, newValue: User | null) => {
+							// console.log('Changing :: ', newValue);
+							setValue(newValue);
+						}}
+						inputValue={inputValue}
+						onInputChange={(event: React.SyntheticEvent, newInputValue: string) => {
+							// console.log('Input Changing :: ', newInputValue);
+							setInputValue(newInputValue);
+						}}
+						options={userData ?? []}
+						getOptionLabel={(option: User) => option.name}
+						sx={{ pt: 2, width: 300 }}
+						renderInput={(params) => {
+							// console.log('params :: ', params);
+							return (
+								<Box sx={{pb: 2}}>
+									<TextField {...params} label="Name" />
+								</Box>
+								
+							)
+						}}
+					/>
 
-							{value && renderAddress()}
-						</>
-						
-					)}
-				</Stack>
-	);
-};
+					{value && renderAddress()}
+				</>
+			)}
+		</Stack>
+	)};
 
 export default AddressLookup;
